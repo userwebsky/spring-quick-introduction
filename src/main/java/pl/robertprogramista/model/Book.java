@@ -1,6 +1,7 @@
 package pl.robertprogramista.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 @Entity
@@ -9,7 +10,9 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Title is mandatory")
     private String title;
+    @NotBlank(message = "Author is mandatory")
     private String author;
     @Temporal(TemporalType.DATE)
     private Date dateOfPublication;
