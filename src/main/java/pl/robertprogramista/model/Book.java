@@ -2,7 +2,9 @@ package pl.robertprogramista.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -12,12 +14,27 @@ public class Book {
     private int id;
     @NotBlank(message = "Title is mandatory")
     private String title;
-    @NotBlank(message = "Author is mandatory")
-    private String author;
+    @ManyToMany
+    @JoinTable(
+        name = "books_authors",
+        joinColumns = @JoinColumn(name = "book_id"),
+        inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authors;
     @Temporal(TemporalType.DATE)
     private Date dateOfPublication;
     private String isbn;
-    private String publisher;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+    @ManyToOne
+    @JoinColumn(name = "publishing_id")
+    private Publishing publishing;
+    @Embedded
+    private MetaData metaData = new MetaData();
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Integer getId() {
         return id;
@@ -29,14 +46,6 @@ public class Book {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
     }
 
     public Date getDateOfPublication() {
@@ -55,15 +64,27 @@ public class Book {
         this.isbn = isbn;
     }
 
-    public String getPublisher() {
-        return publisher;
+    public Set<Author> getAuthors() {
+        return authors;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setAuthors(Set<Author> authors) {
+        this.authors = authors;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Publishing getPublishing() {
+        return publishing;
+    }
+
+    public void setPublishing(Publishing publishing) {
+        this.publishing = publishing;
     }
 }
