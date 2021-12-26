@@ -1,8 +1,9 @@
-package pl.robertprogramista.model;
+package pl.robertprogramista.model.book.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import pl.robertprogramista.model.book.dto.BookDto;
 
 import java.util.List;
 
@@ -16,6 +17,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
             "and c.name like concat('%',:category,'%') " +
             "and p.name like concat('%',:publishing,'%') " +
             "and b.title like concat('%',:name,'%')")
-    List<Book> searchBooks(@Param("name") String name, @Param("author") String author,
-                           @Param("category") String category, @Param("publishing") String publishing);
+    List<BookDto> searchBooks(@Param("name") String name, @Param("author") String author,
+                              @Param("category") String category, @Param("publishing") String publishing);
 }

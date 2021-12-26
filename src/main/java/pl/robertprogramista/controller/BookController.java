@@ -5,7 +5,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import pl.robertprogramista.model.*;
+import pl.robertprogramista.model.author.dao.Author;
+import pl.robertprogramista.model.author.dao.AuthorRepository;
+import pl.robertprogramista.model.book.dao.Book;
+import pl.robertprogramista.model.book.dao.BookRepository;
+import pl.robertprogramista.model.book.dto.BookDto;
+import pl.robertprogramista.model.category.dao.Category;
+import pl.robertprogramista.model.category.dao.CategoryRepository;
+import pl.robertprogramista.model.publishing.dao.Publishing;
+import pl.robertprogramista.model.publishing.dao.PublishingRepository;
+import pl.robertprogramista.service.BookService;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -14,26 +23,19 @@ import java.util.*;
 @RestController
 class BookController {
 
-    private final BookRepository bookRepository;
-    private final CategoryRepository categoryRepository;
-    private final PublishingRepository publishingRepository;
-    private final AuthorRepository authorRepository;
+    private final BookService bookService;
 
-    BookController(BookRepository repository, CategoryRepository categoryRepository,
-                   PublishingRepository publishingRepository, AuthorRepository authorRepository) {
-        this.bookRepository = repository;
-        this.categoryRepository = categoryRepository;
-        this.publishingRepository = publishingRepository;
-        this.authorRepository = authorRepository;
+    BookController(BookService bookService) {
+        this.bookService = bookService;
     }
 
     @GetMapping("/books")
-    ResponseEntity<List<Book>> findAllBook() {
-        return ResponseEntity.ok(bookRepository.findAll());
+    ResponseEntity<List<BookDto>> findAllBook() {
+        return bookService.findAllBook();
     }
 
     @GetMapping("/books/search")
-    List<Book> findBooksAuthor(
+    List<BookDto> findBooksAuthor(
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String author,
         @RequestParam(required = false) String category,
@@ -42,46 +44,27 @@ class BookController {
         if(name == null && author == null && category == null && publishing == null) {
             return new ArrayList<>();
         }
-        List<Book> books = bookRepository.searchBooks(name, author, category, publishing);
-        return books;
+        return bookService.findBooksAuthor(name, author, category, publishing);
     }
 
     @GetMapping("/books/{id}")
-    ResponseEntity<Book> findBookById(@PathVariable int id) {
-        return bookRepository.findById(id).map(book -> ResponseEntity.ok(book)).orElse(ResponseEntity.notFound().build());
+    ResponseEntity<BookDto> findBookById(@PathVariable int id) {
+        return bookService.findBookById(id);
     }
 
     @PostMapping("/books")
     ResponseEntity<Book> saveBook(@Valid @RequestBody Book book) {
-        setCategory(book.getCategory());
-        setPublishing(book.getPublishing());
-        setAuthors(book.getAuthors());
-        Book result = bookRepository.save(book);
-        return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
+        return bookService.saveBook(book);
     }
 
     @PutMapping("/books/{id}")
     ResponseEntity<?> updateBook(@PathVariable int id, @Valid @RequestBody Book book) {
-        if (!bookRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        book.setId(id);
-        setCategory(book.getCategory());
-        setPublishing(book.getPublishing());
-        setAuthors(book.getAuthors());
-        bookRepository.save(book);
-        return ResponseEntity.noContent().build();
+        return bookService.updateBook(id, book);
     }
 
     @DeleteMapping("/books/{id}")
     ResponseEntity<?> deleteBook(@PathVariable int id) {
-        if (!bookRepository.existsById(id)) {
-            return ResponseEntity.notFound().build();
-        }
-        Book book = new Book();
-        book.setId(id);
-        bookRepository.delete(book);
-        return ResponseEntity.noContent().build();
+        return bookService.deleteBook(id);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -95,49 +78,5 @@ class BookController {
             errors.put(fieldName, errorMessage);
         });
         return errors;
-    }
-
-    private void setCategory(Category category) {
-        if (category.getName().isBlank()) {
-            return;
-        }
-
-        Integer categoryId = categoryRepository.getCategoryIdByName(category.getName());
-        if (categoryId != null) {
-            category.setId(categoryId);
-        } else {
-            Integer id = categoryRepository.save(category).getId();
-            category.setId(id);
-        }
-    }
-
-    private void setPublishing(Publishing publishing) {
-        if (publishing.getName().isBlank()) {
-            return;
-        }
-
-        Integer publishingId = publishingRepository.getPublishingIdByName(publishing.getName());
-        if (publishingId != null) {
-            publishing.setId(publishingId);
-        } else {
-            Integer id = publishingRepository.save(publishing).getId();
-            publishing.setId(id);
-        }
-    }
-
-    private void setAuthors(Set<Author> authors) {
-        if (authors.isEmpty()) {
-            return;
-        }
-
-        authors.forEach(author -> {
-            Integer authorId = authorRepository.getAuthorByFullName(author.getName(), author.getSurname());
-            if (authorId != null) {
-                author.setId(authorId);
-            } else {
-                Integer id = authorRepository.save(author).getId();
-                author.setId(id);
-            }
-        });
     }
 }

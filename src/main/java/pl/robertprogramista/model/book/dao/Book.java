@@ -1,8 +1,12 @@
-package pl.robertprogramista.model;
+package pl.robertprogramista.model.book.dao;
+
+import pl.robertprogramista.model.category.dao.Category;
+import pl.robertprogramista.model.metadata.dao.MetaData;
+import pl.robertprogramista.model.publishing.dao.Publishing;
+import pl.robertprogramista.model.author.dao.Author;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.Set;
 

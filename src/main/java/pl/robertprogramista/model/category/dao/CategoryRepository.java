@@ -1,4 +1,4 @@
-package pl.robertprogramista.model;
+package pl.robertprogramista.model.category.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

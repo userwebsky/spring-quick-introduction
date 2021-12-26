@@ -1,4 +1,6 @@
-package pl.robertprogramista.model;
+package pl.robertprogramista.model.publishing.dao;
+
+import pl.robertprogramista.model.book.dao.Book;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +13,7 @@ public class Publishing {
     private int id;
     @NotBlank(message = "Name is mandatory")
     private String name;
-    @OneToMany(targetEntity=Book.class, mappedBy = "publishing",cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity= Book.class, mappedBy = "publishing",cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<Book> books;
 
     public int getId() {

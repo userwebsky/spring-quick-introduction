@@ -1,4 +1,4 @@
-package pl.robertprogramista.model;
+package pl.robertprogramista.model.publishing.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

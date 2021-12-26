@@ -1,4 +1,4 @@
-package pl.robertprogramista.model;
+package pl.robertprogramista.model.metadata.dao;
 
 import javax.persistence.Embeddable;
 import javax.persistence.PrePersist;

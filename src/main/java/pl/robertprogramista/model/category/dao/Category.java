@@ -1,17 +1,20 @@
-package pl.robertprogramista.model;
+package pl.robertprogramista.model.category.dao;
+
+import pl.robertprogramista.model.book.dao.Book;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Set;
 
 @Entity
-@Table(name="authors")
-public class Author {
+@Table(name = "categories")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @NotBlank(message = "Name is mandatory")
     private String name;
-    private String surname;
-    @ManyToMany(mappedBy = "authors", cascade = CascadeType.PERSIST)
+    @OneToMany(targetEntity= Book.class, mappedBy = "category",cascade=CascadeType.PERSIST, fetch = FetchType.LAZY)
     private Set<Book> books;
 
     public int getId() {
@@ -28,13 +31,5 @@ public class Author {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 }
