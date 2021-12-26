@@ -17,6 +17,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
             "and c.name like concat('%',:category,'%') " +
             "and p.name like concat('%',:publishing,'%') " +
             "and b.title like concat('%',:name,'%')")
-    List<BookDto> searchBooks(@Param("name") String name, @Param("author") String author,
+    List<Book> searchBooks(@Param("name") String name, @Param("author") String author,
                               @Param("category") String category, @Param("publishing") String publishing);
 }
