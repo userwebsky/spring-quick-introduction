@@ -5,19 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import pl.robertprogramista.model.author.dao.Author;
-import pl.robertprogramista.model.author.dao.AuthorRepository;
 import pl.robertprogramista.model.book.dao.Book;
-import pl.robertprogramista.model.book.dao.BookRepository;
 import pl.robertprogramista.model.book.dto.BookDto;
-import pl.robertprogramista.model.category.dao.Category;
-import pl.robertprogramista.model.category.dao.CategoryRepository;
-import pl.robertprogramista.model.publishing.dao.Publishing;
-import pl.robertprogramista.model.publishing.dao.PublishingRepository;
 import pl.robertprogramista.service.BookService;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.*;
 
 @RestController
