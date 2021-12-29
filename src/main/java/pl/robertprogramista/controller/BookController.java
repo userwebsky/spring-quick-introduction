@@ -27,16 +27,16 @@ class BookController {
     }
 
     @GetMapping("/books/search")
-    List<BookDto> findBooksAuthor(
+    ResponseEntity<List<BookDto>> findBooksAuthor(
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String author,
         @RequestParam(required = false) String category,
         @RequestParam(required = false) String publishing
     ) {
         if(name == null && author == null && category == null && publishing == null) {
-            return new ArrayList<>();
+            return ResponseEntity.ok(new ArrayList<>());
         }
-        return bookService.findBooksAuthor(name, author, category, publishing);
+        return bookService.findBooks(name, author, category, publishing);
     }
 
     @GetMapping("/books/{id}")

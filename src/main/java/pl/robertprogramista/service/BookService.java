@@ -41,10 +41,10 @@ public class BookService {
         return ResponseEntity.ok(books);
     }
 
-    public List<BookDto> findBooksAuthor(String name, String author, String category, String publishing) {
+    public ResponseEntity<List<BookDto>> findBooks(String name, String author, String category, String publishing) {
         List<BookDto> books = new ArrayList<>();
         bookRepository.searchBooks(name, author, category, publishing).forEach(book -> books.add(new BookDto(book)));
-        return books;
+        return ResponseEntity.ok(books);
     }
 
     public ResponseEntity<BookDto> findBookById(int id) {
