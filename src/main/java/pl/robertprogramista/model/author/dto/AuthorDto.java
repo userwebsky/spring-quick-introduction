@@ -1,14 +1,15 @@
 package pl.robertprogramista.model.author.dto;
 
-import pl.robertprogramista.model.author.dao.Author;
-
 public class AuthorDto {
-    private final String name;
-    private final String surname;
+    private String name;
+    private String surname;
 
-    public AuthorDto(Author author) {
-        this.name = author.getName();
-        this.surname = author.getSurname();
+    public AuthorDto() {
+    }
+
+    public AuthorDto(String name, String surname) {
+        this.name = name;
+        this.surname = surname;
     }
 
     public String getName() {

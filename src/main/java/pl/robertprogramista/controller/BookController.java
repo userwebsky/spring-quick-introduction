@@ -27,7 +27,7 @@ class BookController {
     }
 
     @GetMapping("/books/search")
-    ResponseEntity<List<BookDto>> findBooksAuthor(
+    ResponseEntity<List<BookDto>> findBooks (
         @RequestParam(required = false) String name,
         @RequestParam(required = false) String author,
         @RequestParam(required = false) String category,

@@ -10,24 +10,27 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class BookDto {
-    private final int id;
-    private final String title;
-    private final Set<AuthorDto> authors;
-    private final Date dateOfPublication;
-    private final String isbn;
-    private final CategoryDto category;
-    private final PublishingDto publishing;
+    private int id;
+    private String title;
+    private Set<AuthorDto> authors;
+    private Date dateOfPublication;
+    private String isbn;
+    private CategoryDto category;
+    private PublishingDto publishing;
+
+    public BookDto() {
+    }
 
     public BookDto(Book book) {
         id = book.getId();
         title = book.getTitle();
         Set<AuthorDto> authorsDto = new HashSet<>();
-        book.getAuthors().forEach(author -> authorsDto.add(new AuthorDto(author)));
+        book.getAuthors().forEach(author -> authorsDto.add(new AuthorDto(author.getName(), author.getSurname())));
         authors = authorsDto;
         dateOfPublication = book.getDateOfPublication();
         isbn = book.getIsbn();
-        category = new CategoryDto(book.getCategory());
-        publishing = new PublishingDto(book.getPublishing());
+        category = new CategoryDto(book.getCategory().getName());
+        publishing = new PublishingDto(book.getPublishing().getName());
     }
 
     public int getId() {

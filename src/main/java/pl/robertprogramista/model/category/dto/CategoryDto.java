@@ -1,12 +1,12 @@
 package pl.robertprogramista.model.category.dto;
 
-import pl.robertprogramista.model.category.dao.Category;
-
 public class CategoryDto {
-    private final String name;
+    private String name;
 
-    public CategoryDto(Category category) {
-        this.name = category.getName();
+    public CategoryDto() {}
+
+    public CategoryDto(String name) {
+        this.name = name;
     }
 
     public String getName() {

@@ -1,12 +1,13 @@
 package pl.robertprogramista.model.publishing.dto;
 
-import pl.robertprogramista.model.publishing.dao.Publishing;
-
 public class PublishingDto {
-    private final String name;
+    private String name;
 
-    public PublishingDto(Publishing publishing) {
-        this.name = publishing.getName();
+    public PublishingDto() {
+    }
+
+    public PublishingDto(String name) {
+        this.name = name;
     }
 
     public String getName() {
