@@ -25,3 +25,6 @@ https://robert-programista.pl/websky/spring/przechwytywanie-zadan-w-spring-inter
 
 Filtrowanie żądań za pomocą mechanizmów JAVA w Spring
 https://robert-programista.pl/websky/spring/filtrowanie-zadan-za-pomoca-mechanizmow-java-w-spring/210830213
+
+Własne adnotacje w Spring
+https://robert-programista.pl/websky/spring/wlasne-adnotacje-w-spring/450856226

@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import pl.robertprogramista.annotation.AuditLog;
 import pl.robertprogramista.model.book.dao.Book;
 import pl.robertprogramista.model.book.dto.BookDto;
 import pl.robertprogramista.service.BookService;
@@ -55,6 +56,7 @@ class BookController {
     }
 
     @DeleteMapping("/books/{id}")
+    @AuditLog(notOnlyArgs = true)
     ResponseEntity<?> deleteBook(@PathVariable int id) {
         return bookService.deleteBook(id);
     }
