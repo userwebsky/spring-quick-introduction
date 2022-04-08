@@ -28,3 +28,6 @@ https://robert-programista.pl/websky/spring/filtrowanie-zadan-za-pomoca-mechaniz
 
 Własne adnotacje w Spring
 https://robert-programista.pl/websky/spring/wlasne-adnotacje-w-spring/450856226
+
+Pomiary czasu wykonywania operacji w kodzie
+https://robert-programista.pl/websky/spring/pomiary-czasu-wykonywania-operacji-w-kodzie-aplikacji-springowych/140857230

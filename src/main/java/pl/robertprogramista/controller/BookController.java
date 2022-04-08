@@ -1,5 +1,6 @@
 package pl.robertprogramista.controller;
 
+import io.micrometer.core.annotation.Timed;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -46,6 +47,7 @@ class BookController {
     }
 
     @PostMapping("/books")
+    @Timed(value="save.book", histogram = true)
     ResponseEntity<Book> saveBook(@Valid @RequestBody Book book) {
         return bookService.saveBook(book);
     }
