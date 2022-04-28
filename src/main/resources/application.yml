@@ -1,3 +1,6 @@
 server:
   port: 1410
 isSystemAvailable: true
+check:
+  availability:
+    cron: "0 */1 * * * *"

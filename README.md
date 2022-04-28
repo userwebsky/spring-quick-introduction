@@ -31,3 +31,6 @@ https://robert-programista.pl/websky/spring/wlasne-adnotacje-w-spring/450856226
 
 Pomiary czasu wykonywania operacji w kodzie
 https://robert-programista.pl/websky/spring/pomiary-czasu-wykonywania-operacji-w-kodzie-aplikacji-springowych/140857230
+
+Planowanie zadań w Spring – adnotacja @Scheduled
+https://robert-programista.pl/websky/spring/planowanie-zadan-w-spring-adnotacja-scheduled/202815235
