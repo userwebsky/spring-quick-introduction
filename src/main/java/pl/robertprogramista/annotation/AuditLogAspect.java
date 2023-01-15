@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
+/**
+ * Aspect logging the request for audit purposes
+ */
 @Aspect
 @Component
 public class AuditLogAspect {
@@ -17,10 +20,20 @@ public class AuditLogAspect {
 
     private HttpServletRequest request;
 
+    /**
+     * The constructor into which HttpServletRequest is injected
+     * @param request current request
+     */
     public AuditLogAspect(final HttpServletRequest request) {
         this.request = request;
     }
 
+    /**
+     * Log request data for audit logs
+     * @param joinPoint request processing intersection point
+     * @return the result of proceeding
+     * @throws Throwable exception
+     */
     @Around("@annotation(AuditLog)")
     public Object auditLog(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();

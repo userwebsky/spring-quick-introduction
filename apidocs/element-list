@@ -1,0 +1,17 @@
+pl.robertprogramista
+pl.robertprogramista.annotation
+pl.robertprogramista.config
+pl.robertprogramista.controller
+pl.robertprogramista.filter
+pl.robertprogramista.interceptor
+pl.robertprogramista.model.author.dao
+pl.robertprogramista.model.author.dto
+pl.robertprogramista.model.book.dao
+pl.robertprogramista.model.book.dto
+pl.robertprogramista.model.category.dao
+pl.robertprogramista.model.category.dto
+pl.robertprogramista.model.metadata.dao
+pl.robertprogramista.model.publishing.dao
+pl.robertprogramista.model.publishing.dto
+pl.robertprogramista.scheduler
+pl.robertprogramista.service

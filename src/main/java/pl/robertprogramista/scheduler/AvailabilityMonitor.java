@@ -11,12 +11,20 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+/**
+ * App Availability Monitor
+ */
 @Component
 public class AvailabilityMonitor {
 
     private static final Logger logger = LoggerFactory.getLogger(AvailabilityMonitor.class);
     public static final String URI_TO_CHECK = "http://localhost:1410/books";
 
+    /**
+     * Checks the availability of the application
+     * @throws IOException IO exceptions
+     * @throws InterruptedException interrupted exception
+     */
     @Scheduled(cron = "${check.availability.cron}")
     public void checkAvailability() throws IOException, InterruptedException {
         HttpClient client = HttpClient.newHttpClient();

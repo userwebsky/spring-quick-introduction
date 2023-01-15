@@ -7,6 +7,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+/**
+ * Configuration for interceptors
+ */
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
     private final List<HandlerInterceptor> interceptors;
@@ -15,6 +18,10 @@ public class InterceptorConfig implements WebMvcConfigurer {
         this.interceptors = interceptors;
     }
 
+    /**
+     * Registers interceptors
+     * @param registry interceptor registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         interceptors.forEach(registry::addInterceptor);

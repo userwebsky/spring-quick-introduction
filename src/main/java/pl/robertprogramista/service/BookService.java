@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Books service
+ */
 @Service
 public class BookService {
     private final BookRepository bookRepository;
@@ -24,6 +27,13 @@ public class BookService {
     private final PublishingRepository publishingRepository;
     private final AuthorRepository authorRepository;
 
+    /**
+     * Constructor that sets dependencies
+     * @param bookRepository book repository
+     * @param categoryRepository category repository
+     * @param publishingRepository publishing repository
+     * @param authorRepository author repository
+     */
     public BookService(
             BookRepository bookRepository,
             CategoryRepository categoryRepository,
@@ -35,23 +45,45 @@ public class BookService {
         this.authorRepository = authorRepository;
     }
 
+    /**
+     * Fetches all books from the repository
+     * @return books
+     */
     public ResponseEntity<List<BookDto>> findAllBook() {
         List<BookDto> books = new ArrayList<>();
         bookRepository.findAll().forEach(book -> books.add(new BookDto(book)));
         return ResponseEntity.ok(books);
     }
 
+    /**
+     * Retrieves books from the repository that meet the criteria
+     * @param name books title
+     * @param author books author
+     * @param category books category
+     * @param publishing books publishing
+     * @return book list
+     */
     public ResponseEntity<List<BookDto>> findBooks(String name, String author, String category, String publishing) {
         List<BookDto> books = new ArrayList<>();
         bookRepository.searchBooks(name, author, category, publishing).forEach(book -> books.add(new BookDto(book)));
         return ResponseEntity.ok(books);
     }
 
+    /**
+     * Get book by id
+     * @param id books id
+     * @return book
+     */
     public ResponseEntity<BookDto> findBookById(int id) {
         return bookRepository.findById(id).map(
                 book -> ResponseEntity.ok(new BookDto(book))).orElse(ResponseEntity.notFound().build());
     }
 
+    /**
+     * Save book
+     * @param book object book
+     * @return book
+     */
     public ResponseEntity<Book> saveBook(Book book) {
         setCategory(book.getCategory());
         setPublishing(book.getPublishing());
@@ -60,6 +92,12 @@ public class BookService {
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 
+    /**
+     * Update book
+     * @param id books id
+     * @param book object book
+     * @return response object
+     */
     public ResponseEntity<?> updateBook(int id, Book book) {
         if (!bookRepository.existsById(id)) {
             return ResponseEntity.notFound().build();
@@ -72,6 +110,11 @@ public class BookService {
         return ResponseEntity.noContent().build();
     }
 
+    /**
+     * Delete book
+     * @param id books id
+     * @return response object
+     */
     public ResponseEntity<?> deleteBook(int id) {
         if (!bookRepository.existsById(id)) {
             return ResponseEntity.notFound().build();

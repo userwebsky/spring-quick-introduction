@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Blocks requests to the system. The system will be unavailable
+ */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
 public class SystemUnavailable implements Filter {
@@ -20,6 +23,14 @@ public class SystemUnavailable implements Filter {
     @Value("${isSystemAvailable}")
     private Boolean isSystemAvailable;
 
+    /**
+     * Blocks requests to the system.
+     * @param request current request
+     * @param response current response
+     * @param chain filter chain
+     * @throws IOException IO exceptions
+     * @throws ServletException Servlet exceptions
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         if (isSystemAvailable) {
